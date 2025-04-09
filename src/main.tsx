@@ -7,9 +7,12 @@ import App from "./App";
 
 import Home from "./Pages/Home";
 import About from "./Pages/About";
+import Article from "./Pages/components/Article"
 
 // router creation
-
+const getWeatherOfTheDay = () => {
+  return "sunny";
+};
 const router = createBrowserRouter([
   {
     element: <App />,
@@ -17,10 +20,24 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: () => {
+          return getWeatherOfTheDay();
+        },
+        id: "app",
+        children: [
+          {
+            path: "/",
+            element: <Home />
+          }
+        ]
       },
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/articles/:id",
+        element: <Article />,
       },
     ],
   },
